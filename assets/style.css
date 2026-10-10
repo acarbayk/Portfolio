@@ -148,6 +148,13 @@ h1 span{display:block;color:var(--accent)}
 
 /* Smaller work */
 .cardano{margin-top:1.5rem}
+.stages{grid-column:1/-1;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:.4rem;counter-reset:s}
+.copy .stages li{grid-template-columns:1fr;font-size:1rem;display:grid;gap:.25rem;align-content:start;padding:1rem 1.1rem;border:2px solid var(--border);background:var(--bg);position:relative}
+.copy .stages li::before{margin-top:0;content:"";position:absolute;left:-2px;top:-2px;width:10px;height:10px;background:var(--accent-2)}
+.stages .when{font-family:var(--font-px);font-size:.95rem;color:var(--accent-2);letter-spacing:.04em}
+.stages b{font-weight:700;line-height:1.35}
+.stages .amt{color:var(--soft);font-size:.92rem;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.stages{grid-template-columns:1fr}}
 .sub{margin:3.2rem 0 1.4rem;font-size:1.3rem}
 .grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1.2rem}
 .grid>.card{grid-column:span 2}.grid>.card:nth-child(n+4){grid-column:span 3}

@@ -4,18 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kaya Acarbay — Software Developer (AI agents &amp; autonomous systems)</title>
-<meta name="description" content="Kaya Acarbay is a 4th-year IT student and software developer building AI agents and autonomous systems. Intern at VeriTeknik. Open to internships.">
+<meta name="description" content="Kaya Acarbay is a 4th-year IT student and software developer building AI agents and autonomous systems. Intern at VeriTeknik.">
 <meta name="theme-color" content="#0B0A13">
 <link rel="canonical" href="https://kayaacarbay.netlify.app/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kayaacarbay.netlify.app/">
 <meta property="og:title" content="Kaya Acarbay — Software Developer">
-<meta property="og:description" content="Building AI agents and autonomous systems. Open to internships.">
+<meta property="og:description" content="Building AI agents and autonomous systems.">
 <meta property="og:image" content="https://kayaacarbay.netlify.app/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <script>
   document.documentElement.classList.remove('no-js');
   (function(){try{
@@ -35,7 +36,7 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#home" aria-label="Kaya Acarbay"><span class="brand-mark" aria-hidden="true">KA</span><span>Kaya Acarbay</span></a>
+    <a class="brand" href="#home" aria-label="Kaya Acarbay"><img class="brand-mark" src="assets/logo/logo.svg" width="44" height="44" alt=""><span>Kaya Acarbay</span></a>
     <nav aria-label="Main">
       <ul class="nav-links" id="nav-links">
         <li><a href="#about" data-nav="about" data-i18n="nav.about">About</a></li>
@@ -67,7 +68,7 @@
     <div class="wrap">
       <div class="hero">
         <div>
-          <p class="status" data-i18n="hero.status">Open to internships</p>
+          <p class="status" data-i18n="hero.status">Building worlds from simple rules</p>
           <p class="hi" data-i18n="hero.hi">Hi, I'm</p>
           <h1 id="hero-title">Kaya <span>Acarbay</span></h1>
           <p class="role"><span data-i18n="hero.role">Software developer building AI agents and autonomous systems.</span><span class="cursor" aria-hidden="true"></span></p>
@@ -83,13 +84,13 @@
             <a href="https://www.linkedin.com/in/kaya-acarbay-b27952282/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zM7.1 20.5H3.6V9h3.5v11.5z"/></svg></a>
             <a href="mailto:kaya-acarbay8@hotmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2 .9v.4l8 5.2 8-5.2v-.4H4zm16 3.1l-8 5.2-8-5.2v8h16v-8z"/></svg></a>
           </div>
-          <div class="world" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         </div>
         <div class="portrait">
           <div class="px"><div class="px-in"><img src="assets/img/kaya.webp" width="520" height="520" alt="Portrait of Kaya Acarbay" fetchpriority="high"></div></div>
           <span class="tag-badge">VeriTeknik · intern</span>
         </div>
       </div>
+      <div class="px world-strip" aria-hidden="true"><div class="px-in"><canvas id="world"></canvas></div></div>
       <div class="stats">
         <div class="px stat"><div class="px-in"><b>500+</b><span data-i18n="stat.agents">agents simulated concurrently in the browser</span></div></div>
         <div class="px stat"><div class="px-in"><b>8</b><span data-i18n="stat.aws">AWS ML &amp; Generative AI training certificates</span></div></div>
@@ -125,11 +126,13 @@
           <div class="shots">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-              <img id="civ-shot" src="assets/img/civ-overview.webp" width="1400" height="713" alt="Overview of the civilization simulation: four kingdoms on a map with a live ranking panel" loading="lazy">
+              <img id="civ-shot" src="assets/img/civ-overview.webp" width="1600" height="900" alt="The simulation map in year 7: kingdoms, pixel citizens and a ruler's profile panel" loading="lazy">
             </div>
             <div class="tabs" role="tablist" aria-label="Screenshots">
-              <button type="button" role="tab" aria-selected="true" data-shot="assets/img/civ-overview.webp" data-alt="Overview of the civilization simulation: four kingdoms on a map with a live ranking panel" data-i18n="civ.tab1">Overview</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="assets/img/civ-late-game.webp" data-alt="Late game view of the simulation with larger kingdoms and more history" data-i18n="civ.tab2">Late game</button>
+              <button type="button" role="tab" aria-selected="true" data-shot="assets/img/civ-overview.webp" data-alt="The simulation map in year 7: kingdoms, pixel citizens and a ruler's profile panel" data-i18n="civ.tab1">Map</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="assets/img/civ-late-game.webp" data-alt="The simulation in year 99: kingdoms at war, new dynasties and a rebellion in the event feed" data-i18n="civ.tab2">Year 99</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="assets/img/civ-chronicle.webp" data-alt="The Book of History: population chart of the kingdoms over a century and a list of turning points" data-i18n="civ.tab3">Chronicle</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="assets/img/civ-kingdoms.webp" data-alt="Kingdom ranking panel with population, cities and alliances" data-i18n="civ.tab4">Kingdoms</button>
             </div>
           </div>
           <div class="copy">
@@ -150,6 +153,32 @@
               <div class="links">
                 <a class="btn" href="https://acarbayk.github.io/agent-based-civilization-simulation/" target="_blank" rel="noopener"><span data-i18n="civ.demo">Live demo</span> ↗</a>
                 <a class="btn ghost" href="https://github.com/acarbayk/agent-based-civilization-simulation" target="_blank" rel="noopener"><span data-i18n="civ.src">Source</span> ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="px reveal cardano" aria-labelledby="ada-title">
+        <div class="px-in">
+          <div class="copy">
+            <div class="head">
+              <span class="badge" data-i18n="ada.badge">Founder project</span>
+              <h3 id="ada-title" style="font-size:1.7rem">Spreading Cardano in Turkiye</h3>
+              <p class="date" style="margin:0" data-i18n="ada.date">Nov 2023 — May 2024 · Founder</p>
+            </div>
+            <div class="side" style="gap:1rem">
+              <p data-i18n="ada.desc">I founded and ran a Cardano-funded education initiative to bring blockchain and Web3 literacy to a Turkish audience, from the first idea to published content and live community events.</p>
+              <div class="chips"><span class="chip">Cardano</span><span class="chip">Web3</span><span class="chip">Content</span><span class="chip">Community</span></div>
+            </div>
+            <div class="side">
+              <ul>
+                <li data-i18n="ada.b1">Produced podcast episodes and YouTube content</li>
+                <li data-i18n="ada.b2">Organized community meetups</li>
+                <li data-i18n="ada.b3">Funded by the Cardano community</li>
+              </ul>
+              <div class="links">
+                <a class="btn ghost" href="https://www.linkedin.com/in/kaya-acarbay-b27952282/" target="_blank" rel="noopener"><span data-i18n="ada.link">Details on LinkedIn</span> ↗</a>
               </div>
             </div>
           </div>
@@ -205,6 +234,12 @@
           <p data-i18n="exp.vt.desc">Infrastructure monitoring, customer support and ticket resolution. Contributed fix #172 to pluggedin-app, an open-source MCP server platform.</p>
         </div></div></article>
         <article class="tl-item reveal"><div class="px"><div class="px-in">
+          <p class="date" data-i18n="ada.date2">Nov 2023 — May 2024</p>
+          <h3 data-i18n="ada.role">Founder</h3>
+          <p class="org">Cardano Education Initiative</p>
+          <p data-i18n="ada.tl">Founded a Cardano-funded blockchain education initiative for Turkey: podcast, YouTube content and community meetups.</p>
+        </div></div></article>
+        <article class="tl-item reveal"><div class="px"><div class="px-in">
           <p class="date" data-i18n="exp.mt.date">Sep 2021 — Present</p>
           <h3 data-i18n="exp.mt.title">Volunteer Mentor</h3>
           <p class="org" data-i18n="exp.mt.org">Halit Özpirinç Anatolian High School, İzmir</p>
@@ -214,7 +249,6 @@
       <div class="also reveal">
         <h3 data-i18n="exp.also">Also</h3>
         <p data-i18n="exp.rpg">Co-founded the EMU RPG Club, growing it to 300 members and securing two sponsorships (2023–2025).</p>
-        <p data-i18n="exp.cardano">Founded a Cardano-funded blockchain education initiative in Turkey: podcast, YouTube content and community meetups (2023–2024).</p>
       </div>
     </div>
   </section>
@@ -260,7 +294,7 @@
       <h2 id="contact-title" class="reveal" data-i18n="contact.title">Let's talk</h2>
       <div class="contact">
         <div class="reveal">
-          <p class="lead" data-i18n="contact.lead">I'm looking for an internship and I'm open to interesting collaborations. The fastest way to reach me is email.</p>
+          <p class="lead" data-i18n="contact.lead">I'm open to interesting collaborations and conversations about AI agents and autonomous systems. The fastest way to reach me is email.</p>
           <div class="mail">
             <a class="addr" href="mailto:kaya-acarbay8@hotmail.com">kaya-acarbay8@hotmail.com</a>
             <button type="button" class="btn ghost" id="copy-mail" data-i18n="contact.copy">Copy email</button>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaya Acarbay — Software Developer (AI agents &amp; autonomous systems)</title>
+<meta name="description" content="Kaya Acarbay is a 4th-year IT student and software developer building AI agents and autonomous systems. Intern at VeriTeknik. Open to internships.">
+<meta name="theme-color" content="#0B0A13">
+<link rel="canonical" href="https://kayaacarbay.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kayaacarbay.netlify.app/">
+<meta property="og:title" content="Kaya Acarbay — Software Developer">
+<meta property="og:description" content="Building AI agents and autonomous systems. Open to internships.">
+<meta property="og:image" content="https://kayaacarbay.netlify.app/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>
+  document.documentElement.classList.remove('no-js');
+  (function(){try{
+    var t=localStorage.getItem('theme');
+    if(!t){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}
+    document.documentElement.dataset.theme=t;
+    var l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('lang')||((navigator.language||'en').slice(0,2)==='tr'?'tr':'en');
+    document.documentElement.lang=l==='tr'?'tr':'en';
+  }catch(e){document.documentElement.dataset.theme='dark'}})();
+</script>
+<link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="Kaya Acarbay"><span class="brand-mark" aria-hidden="true">KA</span><span>Kaya Acarbay</span></a>
+    <nav aria-label="Main">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" data-nav="about" data-i18n="nav.about">About</a></li>
+        <li><a href="#work" data-nav="work" data-i18n="nav.work">Work</a></li>
+        <li><a href="#experience" data-nav="experience" data-i18n="nav.exp">Experience</a></li>
+        <li><a href="#skills" data-nav="skills" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="#contact" data-nav="contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="tr" aria-pressed="false" lang="tr">TR</button>
+      </div>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button type="button" class="icon-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HOME -->
+  <section id="home" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <p class="status" data-i18n="hero.status">Open to internships</p>
+          <p class="hi" data-i18n="hero.hi">Hi, I'm</p>
+          <h1 id="hero-title">Kaya <span>Acarbay</span></h1>
+          <p class="role"><span data-i18n="hero.role">Software developer building AI agents and autonomous systems.</span><span class="cursor" aria-hidden="true"></span></p>
+          <p class="bio" data-i18n="hero.bio">4th-year IT student at Eastern Mediterranean University, currently interning at VeriTeknik and contributing to the open-source MCP platform pluggedin.ai.</p>
+          <div class="cta">
+            <a class="btn" href="#work" data-i18n="cta.work">See my work</a>
+            <a class="btn ghost" href="assets/Kaya-Acarbay-Resume.pdf" download>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg><span data-i18n="cta.resume">Download résumé</span>
+            </a>
+          </div>
+          <div class="socials">
+            <a href="https://github.com/acarbayk" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg></a>
+            <a href="https://www.linkedin.com/in/kaya-acarbay-b27952282/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zM7.1 20.5H3.6V9h3.5v11.5z"/></svg></a>
+            <a href="mailto:kaya-acarbay8@hotmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2 .9v.4l8 5.2 8-5.2v-.4H4zm16 3.1l-8 5.2-8-5.2v8h16v-8z"/></svg></a>
+          </div>
+          <div class="world" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="portrait">
+          <div class="px"><div class="px-in"><img src="assets/img/kaya.webp" width="520" height="520" alt="Portrait of Kaya Acarbay" fetchpriority="high"></div></div>
+          <span class="tag-badge">VeriTeknik · intern</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="px stat"><div class="px-in"><b>500+</b><span data-i18n="stat.agents">agents simulated concurrently in the browser</span></div></div>
+        <div class="px stat"><div class="px-in"><b>8</b><span data-i18n="stat.aws">AWS ML &amp; Generative AI training certificates</span></div></div>
+        <div class="px stat"><div class="px-in"><b>5</b><span data-i18n="stat.mentor">years of volunteer mentoring</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="about.label">About</p>
+      <h2 id="about-title" class="reveal" data-i18n="about.title">Curious about how complex systems emerge</h2>
+      <div class="reveal" style="max-width:68ch;display:grid;gap:1rem;color:var(--soft);font-size:1.08rem">
+        <p data-i18n="about.p1">I'm a software developer and 4th-year Information Technology student at Eastern Mediterranean University. I like projects where simple rules produce surprising behavior: agent simulations, autonomous tools and the infrastructure that keeps them running.</p>
+        <p data-i18n="about.p2">At VeriTeknik I support infrastructure monitoring and customer tickets, and I've contributed a fix to the open-source MCP server platform pluggedin.ai. Outside work I mentor high-school students on TÜBİTAK research, and I spent an Erasmus+ exchange in Portugal.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- WORK -->
+  <section id="work" class="alt" aria-labelledby="work-title">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="work.label">Selected work</p>
+      <h2 id="work-title" class="reveal" data-i18n="work.title">Things I've built</h2>
+
+      <article class="px reveal" aria-labelledby="civ-title">
+        <div class="px-in feature">
+          <div class="shots">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+              <img id="civ-shot" src="assets/img/civ-overview.webp" width="1400" height="713" alt="Overview of the civilization simulation: four kingdoms on a map with a live ranking panel" loading="lazy">
+            </div>
+            <div class="tabs" role="tablist" aria-label="Screenshots">
+              <button type="button" role="tab" aria-selected="true" data-shot="assets/img/civ-overview.webp" data-alt="Overview of the civilization simulation: four kingdoms on a map with a live ranking panel" data-i18n="civ.tab1">Overview</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="assets/img/civ-late-game.webp" data-alt="Late game view of the simulation with larger kingdoms and more history" data-i18n="civ.tab2">Late game</button>
+            </div>
+          </div>
+          <div class="copy">
+            <div class="head">
+              <span class="badge" data-i18n="civ.badge">Featured project</span>
+              <h3 id="civ-title" style="font-size:1.7rem">Agent-Based Civilization Simulation</h3>
+            </div>
+            <div class="side" style="gap:1rem">
+              <p data-i18n="civ.desc">Every citizen is an independent agent with a Big Five personality, needs, memories and relationships. Kingdoms, wars, dynasties and rebellions emerge from their interactions, so every run tells a different history.</p>
+              <div class="chips"><span class="chip">JavaScript</span><span class="chip">Canvas</span><span class="chip">Web Workers</span></div>
+            </div>
+            <div class="side">
+              <ul>
+                <li data-i18n="civ.b1">Web Worker architecture keeps 500+ concurrent agents running smoothly</li>
+                <li data-i18n="civ.b2">Built with vanilla JavaScript and HTML5 Canvas, no frameworks</li>
+                <li data-i18n="civ.b3">Agents age, marry, raise children, found dynasties and rebel</li>
+              </ul>
+              <div class="links">
+                <a class="btn" href="https://acarbayk.github.io/agent-based-civilization-simulation/" target="_blank" rel="noopener"><span data-i18n="civ.demo">Live demo</span> ↗</a>
+                <a class="btn ghost" href="https://github.com/acarbayk/agent-based-civilization-simulation" target="_blank" rel="noopener"><span data-i18n="civ.src">Source</span> ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <h3 class="sub reveal" data-i18n="other.title">Contributions &amp; smaller work</h3>
+      <div class="grid">
+        <article class="px card reveal"><div class="px-in">
+          <h3>pluggedin-app</h3>
+          <p data-i18n="other.pi">Fix #172: resolved a Streamable HTTP transport key propagation bug in an open-source MCP server platform.</p>
+          <div class="chips"><span class="chip">TypeScript</span><span class="chip">Open source</span><span class="chip">MCP</span></div>
+        </div></article>
+        <article class="px card reveal"><div class="px-in">
+          <h3>Bug-Hunter</h3>
+          <p data-i18n="other.bh">Autonomous bug bounty agent that automates vulnerability detection and CI/CD integration.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">AI agents</span></div>
+          <a class="more-link" href="https://github.com/acarbayk/Bug-Hunter" target="_blank" rel="noopener">GitHub ↗</a>
+        </div></article>
+        <article class="px card reveal"><div class="px-in">
+          <h3>ChessBot</h3>
+          <p data-i18n="other.cb">Chess engine using minimax with alpha-beta pruning, roughly 1200–1600 Elo, with a GUI that highlights moves and plays sounds.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">python-chess</span></div>
+          <a class="more-link" href="https://github.com/acarbayk/ChessBot" target="_blank" rel="noopener">GitHub ↗</a>
+        </div></article>
+        <article class="px card reveal"><div class="px-in">
+          <h3>Apollo 6</h3>
+          <p data-i18n="other.ap">Teknofest research project on circular farming systems, built under TÜBİTAK mentoring in high school.</p>
+          <div class="chips"><span class="chip">Research</span><span class="chip">Teknofest</span></div>
+          <a class="more-link" href="https://github.com/acarbayk/Apollo6-and-Yeni-Bir-Kavram-Dairesel-Tar-m" target="_blank" rel="noopener">GitHub ↗</a>
+        </div></article>
+        <article class="px card dashed reveal"><div class="px-in">
+          <h3 data-i18n="other.more.t">More on the way</h3>
+          <p data-i18n="other.more.p">I add new projects as I build them. Follow along on GitHub.</p>
+          <a class="more-link" href="https://github.com/acarbayk" target="_blank" rel="noopener">github.com/acarbayk ↗</a>
+        </div></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="exp.label">Experience</p>
+      <h2 id="exp-title" class="reveal" data-i18n="exp.title">Where I've worked</h2>
+      <div class="tl">
+        <article class="tl-item reveal"><div class="px"><div class="px-in">
+          <p class="date" data-i18n="exp.vt.date">Jul 2026 — Present</p>
+          <h3 data-i18n="exp.vt.title">Support &amp; Infrastructure Intern</h3>
+          <p class="org">VeriTeknik</p>
+          <p data-i18n="exp.vt.desc">Infrastructure monitoring, customer support and ticket resolution. Contributed fix #172 to pluggedin-app, an open-source MCP server platform.</p>
+        </div></div></article>
+        <article class="tl-item reveal"><div class="px"><div class="px-in">
+          <p class="date" data-i18n="exp.mt.date">Sep 2021 — Present</p>
+          <h3 data-i18n="exp.mt.title">Volunteer Mentor</h3>
+          <p class="org" data-i18n="exp.mt.org">Halit Özpirinç Anatolian High School, İzmir</p>
+          <p data-i18n="exp.mt.desc">TÜBİTAK science research mentoring. Led Apollo 6, a circular farming project submitted to Teknofest.</p>
+        </div></div></article>
+      </div>
+      <div class="also reveal">
+        <h3 data-i18n="exp.also">Also</h3>
+        <p data-i18n="exp.rpg">Co-founded the EMU RPG Club, growing it to 300 members and securing two sponsorships (2023–2025).</p>
+        <p data-i18n="exp.cardano">Founded a Cardano-funded blockchain education initiative in Turkey: podcast, YouTube content and community meetups (2023–2024).</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- SKILLS + EDUCATION -->
+  <section id="skills" class="alt" aria-labelledby="skills-title">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="skills.label">Skills</p>
+      <h2 id="skills-title" class="reveal" data-i18n="skills.title">What I work with</h2>
+      <div class="skills reveal">
+        <div class="px"><div class="px-in"><h3 data-i18n="skills.g1">Languages</h3><div class="chips"><span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML &amp; CSS</span></div></div></div>
+        <div class="px"><div class="px-in"><h3 data-i18n="skills.g2">Web &amp; data</h3><div class="chips"><span class="chip">React</span><span class="chip">FastAPI</span><span class="chip">PostgreSQL</span></div></div></div>
+        <div class="px"><div class="px-in"><h3 data-i18n="skills.g3">AI &amp; tooling</h3><div class="chips"><span class="chip">LLMs</span><span class="chip">AI agents</span><span class="chip">Prompt engineering</span><span class="chip">Git</span></div></div></div>
+      </div>
+      <div class="edu reveal">
+        <div class="px"><div class="px-in">
+          <h3 data-i18n="edu.title">Education</h3>
+          <ul>
+            <li><span><span data-i18n="edu.emu">Information Technology, 4th year</span> · Eastern Mediterranean University</span></li>
+            <li><span data-i18n="edu.erasmus">Erasmus+ exchange in Portugal</span></li>
+            <li><span data-i18n="edu.lang">Turkish · English · Japanese (beginner)</span></li>
+          </ul>
+        </div></div>
+        <div class="px"><div class="px-in">
+          <h3 data-i18n="cert.title">Certificates</h3>
+          <ul>
+            <li><span><span data-i18n="cert.aws">8 AWS Training &amp; Certification completions: machine learning (6), generative AI (2)</span><small data-i18n="cert.awsd">Including SageMaker, ML terminology and project planning · July 2025</small></span></li>
+            <li><span data-i18n="cert.udemy">Python: Beginner to Advanced (40+ hours), Udemy · February 2023</span></li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="contact.label">Contact</p>
+      <h2 id="contact-title" class="reveal" data-i18n="contact.title">Let's talk</h2>
+      <div class="contact">
+        <div class="reveal">
+          <p class="lead" data-i18n="contact.lead">I'm looking for an internship and I'm open to interesting collaborations. The fastest way to reach me is email.</p>
+          <div class="mail">
+            <a class="addr" href="mailto:kaya-acarbay8@hotmail.com">kaya-acarbay8@hotmail.com</a>
+            <button type="button" class="btn ghost" id="copy-mail" data-i18n="contact.copy">Copy email</button>
+          </div>
+          <p class="sr-only" id="copy-live" role="status" aria-live="polite"></p>
+        </div>
+        <form class="px reveal" name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
+          <div class="px-in">
+            <input type="hidden" name="form-name" value="contact">
+            <p class="hp"><label>Don't fill this out <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+            <div class="field"><label for="f-name" data-i18n="form.name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+            <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="f-msg" data-i18n="form.msg">Message</label><textarea id="f-msg" name="message" required></textarea></div>
+            <button class="btn" type="submit" data-i18n="form.send">Send message</button>
+            <p id="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="footer.copy">© 2026 Kaya Acarbay · Written by hand in HTML, CSS and JavaScript</span>
+    <span><a href="https://github.com/acarbayk" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/kaya-acarbay-b27952282/" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js" defer></script>
+</body>
+</html>

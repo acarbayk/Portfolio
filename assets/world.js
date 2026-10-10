@@ -14,7 +14,7 @@
     { t: 'garden', w: 1, s: 0 }
   ];
   var CASTLE = { t: 'castle', w: 4, s: 4 };
-  var rnd = Math.random;
+  var rnd = Math.random, NIGHT = true;
 
   function World(W, H) { this.W = W; this.H = H; this.G = H - 5; this.tick = 0; this.age = 0; this.reset(); }
 
@@ -36,6 +36,11 @@
     }
     for (i = 0; i < 3; i++) this.sheep.push({ x: rnd() * W, dir: rnd() < 0.5 ? 1 : -1, t: Math.floor(rnd() * 40), go: false });
     for (i = 0; i < 2; i++) this.birds.push({ x: rnd() * W, y: 3 + i * 4 + rnd() * 3, sp: 0.12 + rnd() * 0.1 });
+    var wave = function (amp, base, f1, f2) { var p1 = rnd() * 6, p2 = rnd() * 6, arr = []; for (var x = 0; x < W; x++) arr.push(Math.round(base + amp * (0.6 * Math.sin(x * f1 + p1) + 0.4 * Math.sin(x * f2 + p2)))); return arr; };
+    this.far = wave(7, 15, 0.045, 0.11); this.mid = wave(3, 7, 0.07, 0.19);
+    this.clouds = []; for (i = 0; i < Math.max(3, Math.floor(W / 90)); i++) this.clouds.push({ x: rnd() * W, y: 4 + Math.floor(rnd() * 9), w: 9 + Math.floor(rnd() * 8), sp: 0.03 + rnd() * 0.04 });
+    this.stars = []; for (i = 0; i < Math.floor(W / 7); i++) this.stars.push({ x: Math.floor(rnd() * W), y: Math.floor(rnd() * 22), ph: Math.floor(rnd() * 40) });
+    this.flies = []; for (i = 0; i < 7; i++) this.flies.push({ x: rnd() * W, ph: rnd() * 6 });
     this.flowers = []; for (i = 0; i < Math.floor(W / 6); i++) this.flowers.push({ x: Math.floor(rnd() * W), c: Math.floor(rnd() * 3) });
     void tries;
   };
@@ -155,6 +160,7 @@
     this.N.forEach(function (n) { if (n.hp < 3 && --n.re <= 0) { n.hp++; n.re = 200; } });
     this.sheep.forEach(function (s) { if (s.t-- <= 0) { s.go = !s.go; s.t = 20 + Math.floor(rnd() * 50); if (rnd() < 0.5) s.dir = -s.dir; } if (s.go) { s.x += s.dir * 0.12; if (s.x < 2 || s.x > self.W - 6) s.dir = -s.dir; } });
     this.birds.forEach(function (b) { b.x += b.sp; if (b.x > self.W + 6) b.x = -6; });
+    this.clouds.forEach(function (cl) { cl.x += cl.sp; if (cl.x > self.W + 4) cl.x = -cl.w - 4; });
     this.FX = this.FX.filter(function (f) { f.t++; return f.t < (f.kind === 'heart' ? 14 : 8); });
     this.P = this.P.filter(function (p) { p.x += p.vx; p.y += p.vy; p.vy += p.g || 0.05; return --p.life > 0; });
   };
@@ -174,7 +180,7 @@
   function building(c, b, G, tick) {
     var x = Math.round(b.x), col = COLORS[b.c], i;
     if (b.t === 'hut') { rect(c, x - 2, G - 4, 5, 4, '#C9B28A'); rect(c, x - 3, G - 6, 7, 2, col); rect(c, x - 1, G - 7, 3, 1, col); rect(c, x, G - 3, 1, 3, '#5A3E24'); smoke(c, x + 2, G - 8, tick, b.c); }
-    else if (b.t === 'house') { rect(c, x - 4, G - 6, 9, 6, '#C9B28A'); rect(c, x - 5, G - 8, 11, 2, col); rect(c, x - 3, G - 9, 7, 1, col); rect(c, x, G - 4, 2, 4, '#5A3E24'); rect(c, x - 3, G - 4, 2, 2, '#9CD7FF'); rect(c, x + 3, G - 11, 1, 2, '#8C8AA8'); smoke(c, x + 3, G - 12, tick, b.c + 1); }
+    else if (b.t === 'house') { rect(c, x - 4, G - 6, 9, 6, '#C9B28A'); rect(c, x - 5, G - 8, 11, 2, col); rect(c, x - 3, G - 9, 7, 1, col); rect(c, x, G - 4, 2, 4, '#5A3E24'); rect(c, x - 3, G - 4, 2, 2, NIGHT ? '#FFD34D' : '#9CD7FF'); rect(c, x + 3, G - 11, 1, 2, '#8C8AA8'); smoke(c, x + 3, G - 12, tick, b.c + 1); }
     else if (b.t === 'tower') { rect(c, x - 2, G - 14, 5, 14, '#9A98B8'); rect(c, x - 3, G - 16, 2, 2, '#9A98B8'); rect(c, x + 1, G - 16, 2, 2, '#9A98B8'); rect(c, x - 1, G - 9, 1, 3, '#3C3558'); rect(c, x, G - 21, 1, 5, '#6B6A85'); rect(c, x + 1 + (Math.floor(tick / 6) % 2), G - 21, 4, 2, col); }
     else if (b.t === 'field') { for (i = 0; i < 4; i++) { rect(c, x - 5 + i * 3, G - 2, 2, 2, '#8FBF4E'); rect(c, x - 5 + i * 3, G - 3 - (Math.floor(tick / 20 + i) % 2), 1, 1, '#C9E26E'); } }
     else if (b.t === 'well') { rect(c, x - 2, G - 3, 5, 3, '#8C8AA8'); rect(c, x - 2, G - 6, 1, 3, '#6B4A2B'); rect(c, x + 2, G - 6, 1, 3, '#6B4A2B'); rect(c, x - 2, G - 7, 5, 1, col); rect(c, x, G - 4, 1, 1, '#4CC9F0'); }
@@ -223,12 +229,27 @@
 
   World.prototype.draw = function (c, o) {
     var W = this.W, H = this.H, G = this.G, self = this, dark = o.dark, tick = this.tick, i;
-    rect(c, 0, 0, W, H, o.sky);
-    for (var s = 0; s < W; s += 17) rect(c, s + (s * 7) % 9, 2 + (s * 3) % 9, 1, 1, dark ? '#FFFFFF33' : '#FFFFFF');
-    rect(c, W - 13, 4, 3, 1, dark ? '#F4E9B8' : '#FFD34D'); rect(c, W - 14, 5, 5, 3, dark ? '#F4E9B8' : '#FFD34D'); rect(c, W - 13, 8, 3, 1, dark ? '#F4E9B8' : '#FFD34D');
-    if (dark) { rect(c, W - 11, 4, 3, 4, o.sky); rect(c, W - 12, 5, 2, 3, o.sky); }
+    NIGHT = dark;
+    var bands = dark ? ['#0B0A1C', '#100D2B', '#171240', '#211A58', '#2E2370', '#43307F'] : ['#8FC1FF', '#A8D0FF', '#C4E0FF', '#DCEBFF', '#F0F4FF', '#FFEFD3'];
+    var nb = bands.length, bh = G / nb, y, x;
+    for (y = 0; y < G; y++) {
+      var bi = Math.min(nb - 1, Math.floor(y / bh)), frac = y / bh - bi;
+      rect(c, 0, y, W, 1, bands[bi]);
+      if (bi < nb - 1 && frac > 0.7) for (x = (y % 2); x < W; x += 2) rect(c, x, y, 1, 1, bands[bi + 1]);
+    }
+    if (dark) this.stars.forEach(function (s) { if (((tick >> 3) + s.ph) % 40 > 3) rect(c, s.x, s.y, 1, 1, ((tick >> 4) + s.ph) % 5 === 0 ? '#FFFFFF' : '#FFFFFF66'); });
+    else { rect(c, W - 16, 5, 5, 5, '#FFD34D'); rect(c, W - 15, 4, 3, 1, '#FFD34D'); rect(c, W - 15, 10, 3, 1, '#FFD34D'); rect(c, W - 17, 6, 1, 3, '#FFE88A'); rect(c, W - 11, 6, 1, 3, '#FFE88A'); }
+    if (dark) { rect(c, W - 13, 4, 3, 1, '#F4E9B8'); rect(c, W - 14, 5, 5, 3, '#F4E9B8'); rect(c, W - 13, 8, 3, 1, '#F4E9B8'); rect(c, W - 11, 4, 3, 4, bands[1]); rect(c, W - 12, 5, 2, 3, bands[1]); }
+    var cc = dark ? '#2B2458' : '#FFFFFF';
+    this.clouds.forEach(function (cl) { var cx = Math.round(cl.x), cy = cl.y; rect(c, cx + 2, cy, cl.w - 4, 1, cc); rect(c, cx, cy + 1, cl.w, 2, cc); rect(c, cx + 3, cy - 1, 4, 1, cc); });
+    var farC = dark ? '#322969' : '#A7B9EA', farS = dark ? '#B9B6E8' : '#FFFFFF', midC = dark ? '#1F1A4C' : '#86C7A0';
+    for (x = 0; x < W; x++) {
+      var fh = self.far[x]; rect(c, x, G - fh, 1, fh, farC);
+      var mh = self.mid[x]; rect(c, x, G - mh, 1, mh, midC);
+    }
     this.birds.forEach(function (b) { bird(c, b, tick); });
     rect(c, 0, G, W, H - G, o.grass); rect(c, 0, G + 1, W, 1, o.grassHi); rect(c, 0, G + 2, W, H - G - 2, o.dirt);
+    for (x = 3; x < W; x += 7) rect(c, x + (x * 5) % 3, G - 1, 1, 1, o.grassHi);
     var fc = ['#FFC857', '#F06CA8', '#FFFFFF'];
     this.flowers.forEach(function (f) { rect(c, f.x, G + 1, 1, 1, fc[f.c]); });
     this.N.forEach(function (n) { if (n.type === 'tree') tree(c, n.x, G, n.hp); else rock(c, n.x, G, n.hp); });
@@ -241,6 +262,7 @@
       if (f.kind === 'heart') { var y = f.y - Math.floor(f.t / 3); rect(c, f.x - 1, y, 1, 1, '#F06CA8'); rect(c, f.x + 1, y, 1, 1, '#F06CA8'); rect(c, f.x - 1, y + 1, 3, 1, '#F06CA8'); rect(c, f.x, y + 2, 1, 1, '#F06CA8'); }
       else rect(c, f.x + (f.t % 3) - 1, f.y - Math.floor(f.t / 2), 1, 1, '#E0D8C0');
     });
+    if (dark) this.flies.forEach(function (f) { var fx = f.x + Math.sin(tick / 20 + f.ph) * 6, fy = G - 6 - (Math.sin(tick / 14 + f.ph * 2) + 1) * 4; if (Math.floor(tick / 6 + f.ph * 3) % 4) rect(c, fx, fy, 1, 1, '#E7F27A'); });
     this.P.forEach(function (p) { rect(c, p.x, p.y, 1, 1, p.col); });
     if (this.fade > 0) { c.globalAlpha = Math.min(1, this.fade); rect(c, 0, 0, W, H, o.sky); c.globalAlpha = 1; }
     void i; void H;

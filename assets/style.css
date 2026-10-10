@@ -111,16 +111,9 @@ h1 span{display:block;color:var(--accent)}
   clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px))}
 .tag-badge{position:absolute;left:-14px;bottom:20px;background:var(--surface);border:2px solid var(--border);padding:.45rem .8rem;font-family:var(--font-px);font-size:.9rem;font-weight:500;color:var(--text)}
 /* pixel world strip */
-.world-wrap{margin-top:3rem}
-.world-cap{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:.7rem;font-size:.9rem;color:var(--soft);font-variant-numeric:tabular-nums;min-height:1.6em}
-.world-cap .cap-year{font-family:var(--font-px);color:var(--accent-2);letter-spacing:.06em}
-.world-cap .cap-k{display:inline-flex;align-items:center;gap:.4rem}
-.world-cap .cap-done{color:var(--accent-2);font-weight:700}
-.world-cap .cap-hint{margin-left:auto;color:var(--faint)}
-.world-strip{--c:var(--border)}
-.world-strip:hover{--c:var(--border)}
-.world-strip .px-in{background:var(--bg-alt);line-height:0}
-#world{width:100%;height:160px;display:block;cursor:pointer;image-rendering:pixelated;image-rendering:crisp-edges}
+/* hero scene: full-bleed pixel strip that fades into the page at the top */
+.world-wrap{margin:3rem calc(50% - 50vw) 0;line-height:0}
+#world{width:100%;height:176px;display:block;cursor:pointer;image-rendering:pixelated;image-rendering:crisp-edges;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%);mask-image:linear-gradient(to bottom,transparent 0,#000 38%)}
 @keyframes blink{0%,60%{opacity:1}61%,100%{opacity:0}}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3.5rem;position:relative}
@@ -236,4 +229,4 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
-@media print{header,.world-strip,.tools,#contact form,.skip{display:none}body{background:#fff;color:#000}}
+@media print{header,.world-wrap,.tools,#contact form,.skip{display:none}body{background:#fff;color:#000}}

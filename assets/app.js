@@ -106,7 +106,6 @@
     $$('.tabs button').forEach(function (b) { b.dataset.alt = ALT[b.dataset.shot][lang]; });
     $('#copy-mail').textContent = u.copy;
     updateThemeLabel();
-    if (window.__refreshWorldCaption) window.__refreshWorldCaption();
   }
   $$('[data-lang]').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang, true); }); });
 
@@ -195,37 +194,25 @@
 
   /* ---------- Pixel world strip (see world.js) ---------- */
   (function () {
-    var cv = $('#world'), cap = $('#world-cap');
+    var cv = $('#world');
     if (!cv || !cv.getContext || !window.PixelWorld) return;
-    var ctx = cv.getContext('2d'), SC = 4, H = 40, world = null, timer = null, vis = true, W = 0;
+    var ctx = cv.getContext('2d'), SC = 4, H = 44, world = null, timer = null, vis = true, W = 0;
     var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    var T = { en: { year: 'Year', kingdom: 'Kingdom of Kaya', vill: 'villagers', built: 'built', done: 'Kingdom founded!', hint: 'Click the map to cheer them on.' },
-              tr: { year: 'Yıl', kingdom: 'Kaya Krallığı', vill: 'köylü', built: 'yapı', done: 'Krallık kuruldu!', hint: 'Haritaya tıklayıp onları alkışla.' } };
     function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
     function opts() {
       var dark = root.dataset.theme !== 'light';
       return { dark: dark, sky: css('--bg-alt') || '#100F1B', grass: dark ? '#1F6F4A' : '#4FAE78', grassHi: dark ? '#278A5C' : '#63C48C', dirt: dark ? '#2A2842' : '#B9B5D6' };
     }
     function draw() { if (world) world.draw(ctx, opts()); }
-    function caption() {
-      if (!cap || !world) return;
-      var s = world.stats(), t = T[lang];
-      cap.textContent = '';
-      function add(cls, txt) { var e = document.createElement('span'); e.className = cls; e.textContent = txt; cap.appendChild(e); return e; }
-      add('cap-year', t.year + ' ' + s.year);
-      add('cap-k', t.kingdom);
-      add('cap-k', s.pop + ' ' + t.vill);
-      add('cap-k' + (s.founded ? ' cap-done' : ''), s.founded ? t.done : s.built + '/' + s.total + ' ' + t.built);
-      add('cap-hint', t.hint);
-    }
     function build() {
-      var w = Math.max(80, Math.floor(cv.clientWidth / SC));
-      if (w === W && world) return;
-      W = w; cv.width = W; cv.height = H; world = new PixelWorld.World(W, H);
+      var cw = cv.clientWidth, sc = Math.max(4, Math.min(6, Math.round(cw / 270)));
+      var w = Math.max(80, Math.floor(cw / sc));
+      if (w === W && sc === SC && world) return;
+      SC = sc; W = w; cv.width = W; cv.height = H; cv.style.height = (H * SC) + 'px'; world = new PixelWorld.World(W, H);
       if (reduce.matches) for (var i = 0; i < 760; i++) world.update();
-      draw(); caption();
+      draw();
     }
-    function loop() { world.update(); draw(); if (world.tick % 6 === 0) caption(); }
+    function loop() { world.update(); draw(); }
     function run() { stop(); if (!reduce.matches && vis && !document.hidden) timer = setInterval(loop, 80); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
     cv.addEventListener('click', function (e) { var r = cv.getBoundingClientRect(); world.bless((e.clientX - r.left) / r.width * W); draw(); });
@@ -234,7 +221,6 @@
     document.addEventListener('visibilitychange', run);
     new MutationObserver(draw).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; run(); }).observe(cv);
-    window.__refreshWorldCaption = caption;
     run();
   })();
 

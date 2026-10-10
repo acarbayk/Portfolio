@@ -230,3 +230,25 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-
   .reveal{opacity:1;transform:none}
 }
 @media print{header,.world-wrap,.tools,#contact form,.skip{display:none}body{background:#fff;color:#000}}
+
+/* Case study pages */
+.page-hero{padding:56px 0 72px}
+.back{display:inline-flex;min-height:44px;align-items:center;gap:.4rem;font-weight:700;text-decoration:none;margin-bottom:1rem}
+.cs-title{font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.02;letter-spacing:-.035em;margin-bottom:1.2rem;max-width:18ch}
+.lead{font-size:clamp(1.1rem,2vw,1.35rem);line-height:1.55;color:var(--soft);max-width:60ch;margin-bottom:1.6rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin:2.2rem 0 2rem}
+.fact{border:2px solid var(--border);background:var(--surface);padding:1rem 1.1rem}
+.fact dt{font-family:var(--font-px);color:var(--accent-2);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.fact dd{margin-top:.25rem;font-weight:600;line-height:1.4}
+.prose{max-width:68ch;color:var(--soft);font-size:1.07rem;display:grid;gap:1rem}
+.cards2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.cards2 .px-in,.hard .px-in{padding:1.5rem}
+.cards2 h3,.hard h3{margin-bottom:.5rem}
+.cards2 p,.hard p{color:var(--soft)}
+.hard{display:grid;gap:1.2rem}
+.shot{margin:0}
+.shot img{width:100%;border:2px solid var(--border);background:var(--bg)}
+.shot figcaption{color:var(--faint);font-size:.92rem;margin-top:.6rem;max-width:62ch}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}
+.gallery .shot:first-child{grid-column:1/-1}
+@media (max-width:760px){.cards2,.gallery{grid-template-columns:1fr}.page-hero{padding:32px 0 56px}}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent-Based Civilization Simulation: case study | Kaya Acarbay</title>
+<meta name="description" content="How I built an agent-based civilization simulation in vanilla JavaScript: personalities, rulers, seeded history, and what is still unfinished.">
+<meta name="theme-color" content="#0B0A13">
+<link rel="canonical" href="https://kayaacarbay.netlify.app/civ-sim.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kayaacarbay.netlify.app/civ-sim.html">
+<meta property="og:title" content="Agent-Based Civilization Simulation: case study">
+<meta property="og:description" content="Every person has a personality, a family and a memory. Nobody writes the story.">
+<meta property="og:image" content="https://kayaacarbay.netlify.app/assets/img/civ-overview.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script>
+  document.documentElement.classList.remove('no-js');
+  (function(){try{
+    var t=localStorage.getItem('theme');
+    if(!t){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}
+    document.documentElement.dataset.theme=t;
+    var l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('lang')||((navigator.language||'en').slice(0,2)==='tr'?'tr':'en');
+    document.documentElement.lang=l==='tr'?'tr':'en';
+  }catch(e){document.documentElement.dataset.theme='dark'}})();
+</script>
+<link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="Kaya Acarbay"><img class="brand-mark" src="assets/logo/logo.svg" width="44" height="44" alt=""><span>Kaya Acarbay</span></a>
+    <nav aria-label="Main">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#about" data-i18n="nav.about">About</a></li>
+        <li><a href="index.html#work" aria-current="true" data-i18n="nav.work">Work</a></li>
+        <li><a href="index.html#experience" data-i18n="nav.exp">Experience</a></li>
+        <li><a href="index.html#skills" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="tr" aria-pressed="false" lang="tr">TR</button>
+      </div>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button type="button" class="icon-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero" aria-labelledby="t">
+    <div class="wrap">
+      <a class="back" href="index.html#work">← <span data-i18n="back">Back to work</span></a>
+      <p class="label" data-i18n="cs.label">Case study</p>
+      <h1 id="t" class="cs-title">Agent-Based Civilization Simulation</h1>
+      <p class="lead" data-i18n="cs.lead">I wanted to see what happens when every person in a society gets a personality, a family and a memory, and nobody writes the story. Kingdoms, rebellions and dynasties appear on their own, and every run tells a different history.</p>
+      <div class="links">
+        <a class="btn" href="https://acarbayk.github.io/agent-based-civilization-simulation/" target="_blank" rel="noopener"><span data-i18n="civ.demo">Live demo</span> ↗</a>
+        <a class="btn ghost" href="https://github.com/acarbayk/agent-based-civilization-simulation" target="_blank" rel="noopener"><span data-i18n="civ.src">Source</span> ↗</a>
+      </div>
+      <dl class="facts">
+        <div class="fact"><dt data-i18n="f.role">Role</dt><dd data-i18n="f.role.v">Solo developer</dd></div>
+        <div class="fact"><dt data-i18n="f.stack">Built with</dt><dd data-i18n="f.stack.v">Vanilla JavaScript and HTML5 Canvas, no frameworks</dd></div>
+        <div class="fact"><dt data-i18n="f.scale">Scale</dt><dd data-i18n="f.scale.v">Up to 1,100 people in four kingdoms</dd></div>
+        <div class="fact"><dt data-i18n="f.open">Open source</dt><dd data-i18n="f.open.v">MIT license, playable in the browser (interface in Turkish)</dd></div>
+      </dl>
+      <figure class="shot">
+        <img src="assets/img/civ-overview.webp" width="1600" height="900" alt="The simulation map with four kingdoms, pixel citizens and a ruler's profile panel" fetchpriority="high">
+        <figcaption data-i18n="cap.1">The map in year 7: four kingdoms, thousands of small decisions, one ruler's profile on the right.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <section aria-labelledby="q">
+    <div class="wrap">
+      <p class="label" data-i18n="q.label">The question</p>
+      <h2 id="q" data-i18n="q.title">How much of a civilization's story can emerge from simple rules?</h2>
+      <div class="prose">
+        <p data-i18n="q.p1">Most simulations script their drama. I wanted the drama to come out of the rules. So every person only knows their own needs, relationships and values, and everything bigger (a kingdom, a war, a dynasty) has to be built from what those people do.</p>
+        <p data-i18n="q.p2">The result is a world I did not plan. Kingdoms found cities, ally and betray each other, and sometimes split in a rebellion. Because the generator is seeded, I can replay any history exactly and study why it happened.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <section class="alt" aria-labelledby="h">
+    <div class="wrap">
+      <p class="label" data-i18n="h.label">How it works</p>
+      <h2 id="h" data-i18n="h.title">Four ideas hold it together</h2>
+      <div class="cards2">
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="h.c1.t">People with inner lives</h3>
+          <p data-i18n="h.c1.p">Each person has a Big Five personality, values, a family, friends and rivals, memories and a goal such as revenge or finding a mate. They age, marry, raise children and die.</p>
+        </div></article>
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="h.c2.t">Rulers are people too</h3>
+          <p data-i18n="h.c2.p">A ruler's personality decides how a kingdom handles war, peace and betrayal, so the same map can play out very differently from one run to the next.</p>
+        </div></article>
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="h.c3.t">A world that pushes back</h3>
+          <p data-i18n="h.c3.p">Terrain, seasons, fields and droughts shape food and migration. Rebellions follow the civil violence model by Epstein (2002), with the threshold tuned by measurement.</p>
+        </div></article>
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="h.c4.t">History you can replay</h3>
+          <p data-i18n="h.c4.p">A seeded random generator makes every run reproducible: the same seed replays the same history. The simulation and the interface use separate random streams, so clicking around never changes what happens.</p>
+        </div></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <section aria-labelledby="d">
+    <div class="wrap">
+      <p class="label" data-i18n="d.label">Design decision</p>
+      <h2 id="d" data-i18n="d.title">Rule-based minds instead of a language model per person</h2>
+      <div class="prose">
+        <p data-i18n="d.p1">Before writing the social layer I read the research on generative agents and on how games like Dwarf Fortress and Crusader Kings model people. Calling a language model for hundreds of people at every step is not practical, so each mind is rule-based: memory, relationships, personality and goals.</p>
+        <p data-i18n="d.p2">The plan is to use a language model only for rare moments, such as writing the biography of a legendary figure. The notes and sources are in the repository.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <section class="alt" aria-labelledby="p">
+    <div class="wrap">
+      <p class="label" data-i18n="p.label">The hard parts</p>
+      <h2 id="p" data-i18n="p.title">Three things that took the most work</h2>
+      <div class="hard">
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="p.1.t">Speed with hundreds of people</h3>
+          <p data-i18n="p.1.p">Population is capped at 1,100 (110 per kingdom) and people only look at their neighbors through a spatial grid. The simulation runs on the main thread: at around 600 people, 8× speed reaches roughly 2 to 3× in practice. When a computer cannot keep up, the interface shows the real speed instead of pretending.</p>
+        </div></article>
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="p.2.t">Finding the balance</h3>
+          <p data-i18n="p.2.p">Kingdoms should rise and fall without everything collapsing in the first fifty years. I tuned the rules by measuring runs, for example a rebellion threshold of 0.13 instead of the paper's 0.1, and checked demography against historical ranges: in pre-industrial societies about half of all children died before adulthood, and life expectancy at birth in my runs sits in the mid-30s.</p>
+        </div></article>
+        <article class="px"><div class="px-in">
+          <h3 data-i18n="p.3.t">Making people believable</h3>
+          <p data-i18n="p.3.p">Relationships are one-directional, as in Crusader Kings: what A thinks of B is not what B thinks of A. Memories fade unless they matter. Grief, pride and hunger change mood and fear. Events are written from the real state of the world, so the history reads like a story and not like a log.</p>
+        </div></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <section aria-labelledby="g">
+    <div class="wrap">
+      <p class="label" data-i18n="g.label">See it</p>
+      <h2 id="g" data-i18n="g.title">The same world, a century later</h2>
+      <div class="gallery">
+        <figure class="shot"><img src="assets/img/civ-late-game.webp" width="1600" height="900" alt="Year 99: kingdoms at war, new dynasties and a rebellion in the event feed" loading="lazy"><figcaption data-i18n="cap.2">Year 99: wars, new dynasties and a rebellion in the event feed.</figcaption></figure>
+        <figure class="shot"><img src="assets/img/civ-chronicle.webp" width="1600" height="900" alt="The Book of History: population chart of the kingdoms over a century" loading="lazy"><figcaption data-i18n="cap.3">The Book of History charts every kingdom's population and lists the turning points.</figcaption></figure>
+        <figure class="shot"><img src="assets/img/civ-kingdoms.webp" width="1600" height="900" alt="Kingdom ranking panel with population, cities and alliances" loading="lazy"><figcaption data-i18n="cap.4">The kingdoms panel: population, cities, alliances and unrest.</figcaption></figure>
+      </div>
+      <p class="prose" style="margin-top:1rem" data-i18n="g.tip">Tip: press Space to pause, + and − to change speed, F to follow a person. Click anyone on the map to read their life.</p>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <section class="alt" aria-labelledby="u">
+    <div class="wrap">
+      <p class="label" data-i18n="u.label">Honest status</p>
+      <h2 id="u" data-i18n="u.title">What is still unfinished</h2>
+      <div class="prose">
+        <p data-i18n="u.p1">I keep a plain list of known gaps in the repository. The effect of the advisor's decisions is still hard to see in the noise of the world, war reasons come from only a few templates, and I have not run a test with real players yet.</p>
+        <p data-i18n="u.p2">Writing those limits down, and measuring against them, is part of how I work on this project.</p>
+      </div>
+      <div class="links" style="margin-top:1.6rem">
+        <a class="btn" href="https://acarbayk.github.io/agent-based-civilization-simulation/" target="_blank" rel="noopener"><span data-i18n="civ.demo">Live demo</span> ↗</a>
+        <a class="btn ghost" href="index.html#contact"><span data-i18n="u.talk">Talk to me about it</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="footer.copy">© 2026 Kaya Acarbay · Written by hand in HTML, CSS and JavaScript</span>
+    <span><a href="https://github.com/acarbayk" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/kaya-acarbay-b27952282/" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+<script src="assets/page.js" defer></script>
+</body>
+</html>

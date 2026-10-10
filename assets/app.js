@@ -24,6 +24,7 @@
     'about.title': 'Karmaşık sistemlerin nasıl ortaya çıktığını merak ediyorum',
     'about.p1': 'Yazılım geliştiriciyim ve Doğu Akdeniz Üniversitesi’nde bilişim teknolojileri 4. sınıf öğrencisiyim. Basit kuralların şaşırtıcı davranışlar doğurduğu projeleri severim: ajan simülasyonları, otonom araçlar ve bunları ayakta tutan altyapı.',
     'about.p2': 'VeriTeknik’te altyapı izleme ve müşteri taleplerine destek veriyorum; açık kaynak MCP sunucu platformu pluggedin.ai’ye bir düzeltme katkısında bulundum. İş dışında lise öğrencilerine TÜBİTAK araştırmaları için mentorluk yapıyorum ve Erasmus+ ile Portekiz’de bulundum.',
+    'about.photo': 'Mesai dışı, kafamda Bulbasaur’la.',
     'work.label': 'Seçili işler', 'work.title': 'Geliştirdiklerim',
     'civ.tab1': 'Harita', 'civ.tab2': '99. yıl', 'civ.tab3': 'Tarih kitabı', 'civ.tab4': 'Krallıklar',
     'civ.badge': 'Öne çıkan proje',

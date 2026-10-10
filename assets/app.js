@@ -106,6 +106,7 @@
     $$('.tabs button').forEach(function (b) { b.dataset.alt = ALT[b.dataset.shot][lang]; });
     $('#copy-mail').textContent = u.copy;
     updateThemeLabel();
+    if (window.__refreshWorldCaption) window.__refreshWorldCaption();
   }
   $$('[data-lang]').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang, true); }); });
 
@@ -192,95 +193,49 @@
       .catch(function () { status.className = 'err'; status.textContent = UI[lang].err; });
   });
 
-  /* ---------- Pixel world strip ---------- */
+  /* ---------- Pixel world strip (see world.js) ---------- */
   (function () {
-    var cv = $('#world');
-    if (!cv || !cv.getContext) return;
-    var ctx = cv.getContext('2d'), SC = 4, H = 28, W = 0, tick = 0, timer = null, vis = true;
+    var cv = $('#world'), cap = $('#world-cap');
+    if (!cv || !cv.getContext || !window.PixelWorld) return;
+    var ctx = cv.getContext('2d'), SC = 4, H = 36, world = null, timer = null, vis = true, W = 0;
     var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    var KING = ['#F5B94A', '#4CC9F0', '#F06CA8', '#5EF2B8'];
-    var SKIN = '#E8B88A', HAIR = ['#3B2A20', '#1E1A2B', '#8A5A2B', '#D9C07A'];
+    var T = { en: { year: 'Year', war: 'at war', hint: 'Click the map to drop food on a kingdom.' }, tr: { year: 'Yıl', war: 'savaşta', hint: 'Bir krallığa yiyecek yağdırmak için haritaya tıkla.' } };
     function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-    function rect(x, y, w, h, c) { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), w, h); }
-    // people: role = walk | farm | guard | king | trade
-    var people = [];
-    function resize() {
-      var w = Math.max(60, Math.floor(cv.clientWidth / SC));
-      if (w === W) return;
-      W = w; cv.width = W; cv.height = H;
-      var G = H - 5; people = [];
-      var spots = [0.30, 0.38, 0.62, 0.70];
-      function add(role, x, i, extra) { var p = { role: role, x: x, y: G, k: i % 4, h: i % 4, dir: i % 2 ? 1 : -1, sp: 0.18 + (i % 3) * 0.07, ph: i * 3, min: 0, max: W }; for (var q in extra) p[q] = extra[q]; people.push(p); }
-      add('king', W * 0.08, 0, { sp: 0, k: 0 });
-      add('farm', W * 0.41, 1, { sp: 0, k: 1 }); add('farm', W * 0.47, 2, { sp: 0, k: 1 });
-      add('trade', W * 0.69, 3, { sp: 0, k: 2 });
-      add('guard', W * 0.86, 0, { sp: 0, k: 0, dir: 1 }); add('guard', W * 0.86 + 9, 1, { sp: 0, k: 1, dir: -1 });
-      var walkers = Math.max(5, Math.round(W / 38));
-      for (var i = 0; i < walkers; i++) add('walk', (W * (i + 0.5)) / walkers, i + 2, { min: W * 0.14, max: W * 0.82 });
-      draw();
+    function opts() {
+      var dark = root.dataset.theme !== 'light';
+      return { dark: dark, sky: css('--bg-alt') || '#100F1B', grass: dark ? '#1F6F4A' : '#4FAE78', grassHi: dark ? '#278A5C' : '#63C48C', dirt: dark ? '#2A2842' : '#B9B5D6' };
     }
-    var P = ['.hhh.', '.sss.', '.bbb.', '.bbb.'];
-    function person(p, t) {
-      var x = Math.round(p.x) - 2, y = p.y - 6, step = Math.floor(t / 3 + p.ph) % 2, body = KING[p.k], hair = HAIR[p.h];
-      var bob = p.role === 'walk' && step ? 0 : 0;
-      for (var r = 0; r < P.length; r++) for (var c = 0; c < 5; c++) {
-        var ch = P[r][c]; if (ch === '.') continue;
-        rect(x + c, y + r + bob, 1, 1, ch === 'h' ? hair : ch === 's' ? SKIN : body);
-      }
-      var moving = p.role === 'walk';
-      var legs = moving && step ? [2, 2] : [1, 3];
-      rect(x + legs[0], y + 4, 1, 2, '#2A2842'); rect(x + legs[1], y + 4, 1, 2, '#2A2842');
-      if (p.role === 'king') { rect(x + 1, y - 1, 3, 1, '#FFD34D'); rect(x + 1, y - 2, 1, 1, '#FFD34D'); rect(x + 3, y - 2, 1, 1, '#FFD34D'); rect(x - 1, y + 2, 1, 3, body); }
-      if (p.role === 'farm') { var up = Math.floor(t / 4 + p.ph) % 2; rect(x + 5, y + (up ? 0 : 2), 1, 4, '#8A5A2B'); rect(x + 5, y + (up ? 0 : 2), 2, 1, '#C9CCD8'); }
-      if (p.role === 'guard') {
-        var s = p.dir, hit = Math.floor(t / 5) % 3 === 0;
-        rect(x + (s > 0 ? 5 : -2), y + 2 + (hit ? 0 : 1), 2, 1, '#E6E8F2'); rect(x + (s > 0 ? 7 : -4), y + 2 + (hit ? 0 : 1), 2, 1, '#C9CCD8');
-        rect(x + (s > 0 ? -1 : 5), y + 2, 1, 3, '#7A7A99');
-        if (hit && s > 0) { rect(x + 11, y + 1, 1, 1, '#FFF3A8'); rect(x + 12, y, 1, 1, '#FFF3A8'); rect(x + 12, y + 2, 1, 1, '#FFB347'); }
-      }
-      if (p.role === 'trade') { rect(x + 6, y + 2, 7, 3, '#8A5A2B'); rect(x + 6, y + 1, 7, 1, '#F06CA8'); rect(x + 7, y + 5, 1, 1, '#2A2842'); rect(x + 11, y + 5, 1, 1, '#2A2842'); }
-    }
-    function tree(x, G) { rect(x + 2, G - 3, 1, 3, '#6B4A2B'); rect(x, G - 7, 5, 4, '#2F9E62'); rect(x + 1, G - 8, 3, 1, '#3FBF7A'); }
-    function house(x, G, col) { rect(x, G - 6, 9, 6, '#C9B28A'); rect(x - 1, G - 8, 11, 2, col); rect(x + 1, G - 9, 7, 1, col); rect(x + 4, G - 4, 2, 4, '#5A3E24'); rect(x + 1, G - 4, 2, 2, '#9CD7FF'); }
-    function castle(x, G) {
-      rect(x, G - 14, 24, 14, '#9A98B8'); rect(x + 2, G - 14, 20, 1, '#B7B5D2');
-      for (var i = 0; i < 6; i++) rect(x + i * 4, G - 16, 2, 2, '#9A98B8');
-      rect(x + 10, G - 7, 4, 7, '#3C3558'); rect(x + 3, G - 10, 2, 3, '#3C3558'); rect(x + 19, G - 10, 2, 3, '#3C3558');
-      rect(x + 11, G - 24, 1, 8, '#6B6A85'); rect(x + 12, G - 24, 5, 3, KING[0]);
-    }
-    function field(x, G) { for (var i = 0; i < 5; i++) { rect(x + i * 3, G - 2, 2, 2, '#8FBF4E'); rect(x + i * 3, G - 3, 1, 1, '#C9E26E'); } }
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      var G = H - 5, sky = css('--bg-alt') || '#100F1B', soil = css('--border') || '#2A2842';
-      rect(0, 0, W, H, sky);
-      // stars / clouds
-      for (var s = 0; s < W; s += 17) rect(s + (s * 7) % 9, 2 + (s * 3) % 7, 1, 1, '#FFFFFF33');
-      var dark = document.documentElement.dataset.theme !== 'light';
-      var grass = dark ? '#1F6F4A' : '#4FAE78', dirt = dark ? '#2A2842' : '#B9B5D6';
-      rect(0, G, W, H - G, grass); rect(0, G + 1, W, 1, dark ? '#278A5C' : '#63C48C'); rect(0, G + 2, W, H - G - 2, dirt);
-      castle(Math.round(W * 0.04), G);
-      tree(Math.round(W * 0.2), G); house(Math.round(W * 0.27), G, KING[1]); tree(Math.round(W * 0.34), G);
-      field(Math.round(W * 0.40), G); house(Math.round(W * 0.55), G, KING[2]); tree(Math.round(W * 0.61), G);
-      house(Math.round(W * 0.76), G, KING[3]); tree(Math.round(W * 0.94), G);
-      people.forEach(function (p) { person(p, tick); });
-    }
-    function update() {
-      tick++;
-      people.forEach(function (p) {
-        if (p.role !== 'walk') return;
-        if (Math.floor(tick / 40 + p.ph) % 5 === 0) return;      // stop and chat
-        p.x += p.dir * p.sp;
-        if (p.x < p.min || p.x > p.max) { p.dir = -p.dir; p.x = Math.max(p.min, Math.min(p.max, p.x)); }
+    function draw() { if (world) world.draw(ctx, opts()); }
+    function caption() {
+      if (!cap || !world) return;
+      var s = world.stats(), t = T[lang];
+      cap.textContent = '';
+      var y = document.createElement('span'); y.className = 'cap-year'; y.textContent = t.year + ' ' + s.year; cap.appendChild(y);
+      s.kingdoms.forEach(function (k) {
+        var e = document.createElement('span'); e.className = 'cap-k' + (k.alive ? '' : ' dead');
+        var d = document.createElement('i'); d.style.background = k.color; e.appendChild(d);
+        e.appendChild(document.createTextNode(k.name + ' ' + (k.alive ? k.pop : '✕') + (k.war ? ' · ' + t.war : '')));
+        cap.appendChild(e);
       });
+      var h = document.createElement('span'); h.className = 'cap-hint'; h.textContent = t.hint; cap.appendChild(h);
     }
-    function loop() { update(); draw(); }
-    function run() { stop(); if (!reduce.matches && vis && !document.hidden) timer = setInterval(loop, 110); }
+    function build() {
+      var w = Math.max(80, Math.floor(cv.clientWidth / SC));
+      if (w === W && world) return;
+      W = w; cv.width = W; cv.height = H; world = new PixelWorld.World(W, H);
+      if (reduce.matches) for (var i = 0; i < 700; i++) world.update();
+      draw(); caption();
+    }
+    function loop() { world.update(); draw(); if (world.tick % 9 === 0) caption(); }
+    function run() { stop(); if (!reduce.matches && vis && !document.hidden) timer = setInterval(loop, 90); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    resize(); window.addEventListener('resize', function () { resize(); });
+    cv.addEventListener('click', function (e) { var r = cv.getBoundingClientRect(); world.bless((e.clientX - r.left) / r.width * W); draw(); });
+    build(); window.addEventListener('resize', build);
     reduce.addEventListener && reduce.addEventListener('change', run);
     document.addEventListener('visibilitychange', run);
-    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    new MutationObserver(draw).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; run(); }).observe(cv);
+    window.__refreshWorldCaption = caption;
     run();
   })();
 

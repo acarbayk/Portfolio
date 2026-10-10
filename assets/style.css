@@ -111,10 +111,17 @@ h1 span{display:block;color:var(--accent)}
   clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px))}
 .tag-badge{position:absolute;left:-14px;bottom:20px;background:var(--surface);border:2px solid var(--border);padding:.45rem .8rem;font-family:var(--font-px);font-size:.9rem;font-weight:500;color:var(--text)}
 /* pixel world strip */
-.world-strip{margin-top:3rem;--c:var(--border)}
+.world-wrap{margin-top:3rem}
+.world-cap{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:.7rem;font-size:.9rem;color:var(--soft);font-variant-numeric:tabular-nums;min-height:1.6em}
+.world-cap .cap-year{font-family:var(--font-px);color:var(--accent-2);letter-spacing:.06em}
+.world-cap .cap-k{display:inline-flex;align-items:center;gap:.4rem}
+.world-cap .cap-k i{width:10px;height:10px;display:inline-block}
+.world-cap .dead{opacity:.5;text-decoration:line-through}
+.world-cap .cap-hint{margin-left:auto;color:var(--faint)}
+.world-strip{--c:var(--border)}
 .world-strip:hover{--c:var(--border)}
 .world-strip .px-in{background:var(--bg-alt);line-height:0}
-#world{width:100%;height:112px;display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+#world{width:100%;height:144px;display:block;cursor:pointer;image-rendering:pixelated;image-rendering:crisp-edges}
 @keyframes blink{0%,60%{opacity:1}61%,100%{opacity:0}}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3.5rem;position:relative}

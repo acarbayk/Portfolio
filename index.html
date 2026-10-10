@@ -90,7 +90,10 @@
           <span class="tag-badge">VeriTeknik · intern</span>
         </div>
       </div>
-      <div class="px world-strip" aria-hidden="true"><div class="px-in"><canvas id="world"></canvas></div></div>
+      <div class="world-wrap" aria-hidden="true">
+        <div class="px world-strip"><div class="px-in"><canvas id="world" title=""></canvas></div></div>
+        <p class="world-cap" id="world-cap"></p>
+      </div>
       <div class="stats">
         <div class="px stat"><div class="px-in"><b>500+</b><span data-i18n="stat.agents">agents simulated concurrently in the browser</span></div></div>
         <div class="px stat"><div class="px-in"><b>8</b><span data-i18n="stat.aws">AWS ML &amp; Generative AI training certificates</span></div></div>
@@ -330,6 +333,7 @@
   </div>
 </footer>
 
+<script src="assets/world.js" defer></script>
 <script src="assets/app.js" defer></script>
 </body>
 </html>

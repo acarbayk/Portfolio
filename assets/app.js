@@ -197,9 +197,10 @@
   (function () {
     var cv = $('#world'), cap = $('#world-cap');
     if (!cv || !cv.getContext || !window.PixelWorld) return;
-    var ctx = cv.getContext('2d'), SC = 4, H = 36, world = null, timer = null, vis = true, W = 0;
+    var ctx = cv.getContext('2d'), SC = 4, H = 40, world = null, timer = null, vis = true, W = 0;
     var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    var T = { en: { year: 'Year', war: 'at war', hint: 'Click the map to drop food on a kingdom.' }, tr: { year: 'Yıl', war: 'savaşta', hint: 'Bir krallığa yiyecek yağdırmak için haritaya tıkla.' } };
+    var T = { en: { year: 'Year', kingdom: 'Kingdom of Kaya', vill: 'villagers', built: 'built', done: 'Kingdom founded!', hint: 'Click the map to cheer them on.' },
+              tr: { year: 'Yıl', kingdom: 'Kaya Krallığı', vill: 'köylü', built: 'yapı', done: 'Krallık kuruldu!', hint: 'Haritaya tıklayıp onları alkışla.' } };
     function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
     function opts() {
       var dark = root.dataset.theme !== 'light';
@@ -210,24 +211,22 @@
       if (!cap || !world) return;
       var s = world.stats(), t = T[lang];
       cap.textContent = '';
-      var y = document.createElement('span'); y.className = 'cap-year'; y.textContent = t.year + ' ' + s.year; cap.appendChild(y);
-      s.kingdoms.forEach(function (k) {
-        var e = document.createElement('span'); e.className = 'cap-k' + (k.alive ? '' : ' dead');
-        var d = document.createElement('i'); d.style.background = k.color; e.appendChild(d);
-        e.appendChild(document.createTextNode(k.name + ' ' + (k.alive ? k.pop : '✕') + (k.war ? ' · ' + t.war : '')));
-        cap.appendChild(e);
-      });
-      var h = document.createElement('span'); h.className = 'cap-hint'; h.textContent = t.hint; cap.appendChild(h);
+      function add(cls, txt) { var e = document.createElement('span'); e.className = cls; e.textContent = txt; cap.appendChild(e); return e; }
+      add('cap-year', t.year + ' ' + s.year);
+      add('cap-k', t.kingdom);
+      add('cap-k', s.pop + ' ' + t.vill);
+      add('cap-k' + (s.founded ? ' cap-done' : ''), s.founded ? t.done : s.built + '/' + s.total + ' ' + t.built);
+      add('cap-hint', t.hint);
     }
     function build() {
       var w = Math.max(80, Math.floor(cv.clientWidth / SC));
       if (w === W && world) return;
       W = w; cv.width = W; cv.height = H; world = new PixelWorld.World(W, H);
-      if (reduce.matches) for (var i = 0; i < 700; i++) world.update();
+      if (reduce.matches) for (var i = 0; i < 760; i++) world.update();
       draw(); caption();
     }
-    function loop() { world.update(); draw(); if (world.tick % 9 === 0) caption(); }
-    function run() { stop(); if (!reduce.matches && vis && !document.hidden) timer = setInterval(loop, 90); }
+    function loop() { world.update(); draw(); if (world.tick % 6 === 0) caption(); }
+    function run() { stop(); if (!reduce.matches && vis && !document.hidden) timer = setInterval(loop, 80); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
     cv.addEventListener('click', function (e) { var r = cv.getBoundingClientRect(); world.bless((e.clientX - r.left) / r.width * W); draw(); });
     build(); window.addEventListener('resize', build);

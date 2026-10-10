@@ -97,6 +97,7 @@
     });
     $$('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
     var u = UI[lang];
+    var rl = $('#resume-link'); if (rl) rl.setAttribute('href', lang === 'tr' ? 'assets/Kaya-Acarbay-Ozgecmis.pdf' : 'assets/Kaya-Acarbay-Resume.pdf');
     document.title = u.title;
     $('meta[name="description"]').setAttribute('content', u.desc);
     $('.lang').setAttribute('aria-label', u.langLabel);
